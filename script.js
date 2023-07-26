@@ -66,7 +66,6 @@ function openEditModal(eventForDay) {
 }
 
 function closeEditModal() {
-  editEventTitleInput.classList.remove("error");
   editEventModal.style.display = "none";
   backDrop.style.display = "none";
   eventTitleInput.value = "";
@@ -99,7 +98,6 @@ function openDetailsModal(eventForDay) {
 }
 
 function closeDetailModal() {
-  eventTitleInput.classList.remove("error");
   detailsEventModal.style.display = "none";
   backDrop.style.display = "none";
   eventTitleInput.value = "";
@@ -119,7 +117,6 @@ function openNewModal(dayForEvent) {
 }
 
 function closeNewModal() {
-  eventTitleInput.classList.remove("error");
   newEventModal.style.display = "none";
   backDrop.style.display = "none";
   eventTitleInput.value = "";
@@ -150,8 +147,6 @@ function saveEditEvent() {
 
 function saveEvent() {
   if (eventTitleInput.value && eventTimeInput.value) {
-    eventTitleInput.classList.remove("error");
-
     generateUUIDv4()
       .then((id) => {
         events.push({
