@@ -1,4 +1,4 @@
-/* Thank you Copilot */
+//UUIDv4 Generator via ChatGPT
 async function generateUUIDv4() {
   const data = await window.crypto.getRandomValues(new Uint8Array(16));
   data[6] = (data[6] & 0x0f) | 0x40;
@@ -18,8 +18,9 @@ async function generateUUIDv4() {
 }
 
 // Global Variables
-// let nav = 0;
 let nav = new Date(); // today
+let eventForEdit = null;
+let selectedDay = null;
 
 let events = localStorage.getItem("events")
   ? JSON.parse(localStorage.getItem("events"))
@@ -52,7 +53,7 @@ const weekdays = [
   "Saturday",
 ];
 
-let eventForEdit = null;
+// Functions
 
 function openEditModal(eventForDay) {
   eventForEdit = eventForDay;
@@ -62,8 +63,6 @@ function openEditModal(eventForDay) {
   editEventDescriptionInput.value = eventForDay.description;
   editEventModal.style.display = "block";
   backDrop.style.display = "block";
-  // Logic here
-  // TODO: Write this
 }
 
 function closeEditModal() {
@@ -76,6 +75,7 @@ function closeEditModal() {
 }
 
 let deleteEventBoundFn = null;
+let editEventBoundFn = null;
 
 function openDetailsModal(eventForDay) {
   const time = convertTime(eventForDay.time);
@@ -87,12 +87,15 @@ function openDetailsModal(eventForDay) {
   deleteEventBoundFn = () => {
     deleteEvent(eventForDay);
   };
+  editEventBoundFn = () => {
+    openEditModal(eventForDay);
+  };
   document
     .getElementById("deleteButton")
     .addEventListener("click", deleteEventBoundFn);
   document
     .getElementById("editButton")
-    .addEventListener("click", () => openEditModal(eventForDay));
+    .addEventListener("click", editEventBoundFn);
 }
 
 function closeDetailModal() {
@@ -109,14 +112,10 @@ function closeDetailModal() {
   deleteEventBoundFn = null;
 }
 
-let selectedDay = null;
-
 function openNewModal(dayForEvent) {
-  newEventModal.style.display = "block";
-
-  backDrop.style.display = "block";
-
   selectedDay = dayForEvent;
+  newEventModal.style.display = "block";
+  backDrop.style.display = "block";
 }
 
 function closeNewModal() {
@@ -129,10 +128,7 @@ function closeNewModal() {
 }
 
 function saveEditEvent() {
-  // TODO: Write this, chat gpt
   if (editEventTitleInput.value && editEventTimeInput.value) {
-    editEventTitleInput.classList.remove("error");
-
     const updatedEvent = {
       ...eventForEdit,
       title: editEventTitleInput.value,
@@ -195,11 +191,6 @@ function convertTime(time) {
 }
 
 function getDate() {
-  // const date = new Date();
-
-  // if (nav !== 0) {
-  //   date.setMonth(date.getMonth() + nav);
-  // }
   const date = nav;
 
   const day = date.getDate();
@@ -207,7 +198,7 @@ function getDate() {
   const year = date.getFullYear();
 
   const firstDayOfMonth = new Date(year, month, 1);
-  const lastDayofMonth = new Date(year, month + 1, 0).getDate();
+  const lastDayOfMonth = new Date(year, month + 1, 0).getDate();
 
   const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
     weekday: "long",
@@ -222,7 +213,7 @@ function getDate() {
     month,
     year,
     firstDayOfMonth,
-    lastDayofMonth,
+    lastDayOfMonth,
     dateString,
   };
 }
@@ -234,7 +225,7 @@ function generateCalender() {
     month,
     year,
     firstDayOfMonth,
-    lastDayofMonth,
+    lastDayOfMonth,
     dateString,
   } = getDate();
 
@@ -246,7 +237,7 @@ function generateCalender() {
 
   calendar.innerHTML = "";
 
-  for (let i = 1; i <= paddingDays + lastDayofMonth; i++) {
+  for (let i = 1; i <= paddingDays + lastDayOfMonth; i++) {
     const daySquare = document.createElement("div");
     daySquare.classList.add("day");
 
@@ -256,7 +247,6 @@ function generateCalender() {
       daySquare.innerText = i - paddingDays;
       const eventsForDay = events.filter((e) => e.date === dayString);
 
-      // if (i - paddingDays === day && nav === 0) {
       if (i - paddingDays === day && nav.getMonth() === new Date().getMonth()) {
         daySquare.id = "currentDay";
       }
@@ -285,21 +275,14 @@ function generateCalender() {
 }
 
 function showToday() {
-  // nav = 0;
   nav = new Date();
   generateCalender();
 }
 
 function goToDate() {
   const inputDate = new Date(dateInput.value);
-  // const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
-  // if (dateRegex.test(dateInput.value)) {
   if (inputDate.toString() !== "Invalid Date") {
-    // nav =
-    //   (inputDate.getFullYear() - new Date().getFullYear()) * 12 +
-    //   inputDate.getMonth() -
-    //   new Date().getMonth();
     nav = inputDate;
     generateCalender();
 
@@ -312,15 +295,14 @@ function goToDate() {
   }
 }
 
+// Event Listeners
 function initButtons() {
   document.getElementById("nextButton").addEventListener("click", () => {
-    // nav++;
     nav.setMonth(nav.getMonth() + 1);
     generateCalender();
   });
 
   document.getElementById("previousButton").addEventListener("click", () => {
-    // nav--;
     nav.setMonth(nav.getMonth() - 1);
     generateCalender();
   });
@@ -352,5 +334,6 @@ function initButtons() {
     .addEventListener("click", openEditModal);
 }
 
+// On Load
 initButtons();
 generateCalender();

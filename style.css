@@ -95,6 +95,7 @@ button:hover {
   color: white;
 }
 .event {
+  width: 100%;
   font-size: 10px;
   padding: 3px;
   background-color: #e7c6ff;
