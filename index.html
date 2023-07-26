@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.cdnfonts.com/css/barbie" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="/style.css" />
+    <script
+      src="https://kit.fontawesome.com/00d3e592fd.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <img src="/Barbie_Logo.svg" alt="logo" />
+        <div id="monthDisplay"></div>
+        <div id="navButtons">
+          <button id="previousButton">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button id="nextButton">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="weekdays">
+        <div>Sunday</div>
+        <div>Monday</div>
+        <div>Tuesday</div>
+        <div>Wednesday</div>
+        <div>Thursday</div>
+        <div>Friday</div>
+        <div>Saturday</div>
+      </div>
+
+      <div id="calendar"></div>
+
+      <div class="goto-today">
+        <div id="goto">
+          <input id="dateInput" type="date" />
+          <button id="gotoBtn">Go</button>
+        </div>
+        <button id="todayBtn">Today</button>
+      </div>
+    </div>
+
+    <div id="newEventModal">
+      <h2>New Event</h2>
+
+      <input id="eventTitleInput" type="text" placeholder="Title" />
+      <input id="eventTimeInput" type="time" />
+      <input id="eventDescriptionInput" type="text" placeholder="Description" />
+
+      <button id="saveButton">Save</button>
+      <button id="cancelButton">Cancel</button>
+    </div>
+
+    <div id="editEventModal">
+      <h2>Edit Event</h2>
+
+      <input id="editEventTitleInput" type="text" />
+      <input id="editEventTimeInput" type="time" />
+      <input id="editEventDescriptionInput" type="text" />
+
+      <button id="saveEditButton">Save</button>
+      <button id="closeEditButton">Close</button>
+    </div>
+
+    <div id="detailsEventModal">
+      <h2>Event Details</h2>
+
+      <p id="eventText"></p>
+
+      <button id="editButton">Edit</button>
+      <button id="deleteButton">Delete</button>
+      <button id="closeButton">Close</button>
+    </div>
+
+    <div id="modalBackDrop"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
